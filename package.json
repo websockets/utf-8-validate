@@ -1,6 +1,6 @@
 {
   "name": "utf-8-validate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Validate UTF-8 for Web",
   "main": "index.js",
   "scripts": {
