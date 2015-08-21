@@ -1,5 +1,7 @@
 # utf-8-validate
 
+[![Build Status](https://travis-ci.org/websockets/utf-8-validate.svg?branch=master)](https://travis-ci.org/websockets/utf-8-validate)
+
 WebSocket connections require extensive UTF-8 validation in order to confirm to
 the specification. This was unfortunately not possible in JavaScript, hence the
 need for a binary addon.
