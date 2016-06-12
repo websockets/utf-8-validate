@@ -4,6 +4,8 @@ node_js:
   - "iojs-v3"
   - "iojs-v2"
   - "iojs-v1"
+  - "4.1"
+  - "4.0"
   - "0.12"
   - "0.10"
 addons:
