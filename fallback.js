@@ -6,7 +6,7 @@
  * MIT Licensed
  */
 
-module.exports.Validation = {
+exports.Validation = {
   isValidUTF8: function(buffer) {
     return true;
   }
