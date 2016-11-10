@@ -11,7 +11,7 @@ As the module consists of binary components, it should be used an
 `optionalDependency` so when installation fails, it doesn't halt the
 installation of your module. There are fallback files available in this
 repository. See `fallback.js` for the suggest fallback implementation if
-installation fails. 
+installation fails.
 
 ## Installation
 
@@ -22,12 +22,12 @@ npm install utf-8-validate
 ## API
 
 In all examples we assume that you've already required the mdoule as
-followed:
+follows:
 
 ```js
 'use strict';
 
-var isValid = require('utf-8-validate').isValidUTF8;
+var validation = require('utf-8-validate').Validation;
 ```
 
 The module exposes 1 function:
@@ -37,9 +37,9 @@ The module exposes 1 function:
 Validate if the passed in buffer contains valid UTF-8 chars.
 
 ```js
-bu.isValidUTF8(buffer);
+validation.isValidUTF8(buffer);
 ```
 
 ## License
 
-MIT
+[MIT](LICENSE)
