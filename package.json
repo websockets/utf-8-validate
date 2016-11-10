@@ -4,8 +4,8 @@
   "description": "Validate UTF-8 for Web",
   "main": "index.js",
   "scripts": {
-    "test": "mocha -r should test/*.test.js",
-    "coverage": "istanbul cover --report html _mocha -- -r should test/*.test.js"
+    "coverage": "istanbul cover _mocha --report html -- test/*.test.js",
+    "test": "mocha test/*.test.js"
   },
   "repository": {
     "type": "git",
@@ -22,11 +22,10 @@
   "homepage": "https://github.com/websockets/utf-8-validate",
   "dependencies": {
     "bindings": "1.2.x",
-    "nan": "2.3.x"
+    "nan": "2.4.x"
   },
   "devDependencies": {
-    "istanbul": "*",
-    "mocha": "*",
-    "should": "*"
+    "istanbul": "0.4.x",
+    "mocha": "3.1.x"
   }
 }
