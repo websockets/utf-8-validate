@@ -6,14 +6,24 @@ var fs = require('fs');
 
 var txt = fs.readFileSync(path.join(__dirname, 'fixtures', 'lorem-ipsum.txt'));
 
-describe('bindings', function() {
+describe('bindings', function () {
   var Validation = require('bindings')('validation').Validation;
+
+  it('should throw an error if the first argument is not a buffer', function () {
+    assert.throws(function () {
+      Validation.isValidUTF8({});
+    }, /TypeError: First argument needs to be a buffer/);
+  });
+
+  it('should return true with an empty buffer', function () {
+    assert.strictEqual(Validation.isValidUTF8(new Buffer(0)), true);
+  });
 
   it('should return true for a valid utf8 string', function () {
     assert.strictEqual(Validation.isValidUTF8(new Buffer(txt)), true);
   });
 
-  it('should return false for an erroneous string', function() {
+  it('should return false for an erroneous string', function () {
     var invalid = new Buffer([
       0xce, 0xba, 0xe1, 0xbd, 0xb9, 0xcf, 0x83, 0xce, 0xbc, 0xce, 0xb5, 0xed,
       0xa0, 0x80, 0x65, 0x64, 0x69, 0x74, 0x65, 0x64
@@ -44,11 +54,21 @@ describe('bindings', function() {
 describe.skip('fallback', function () {
   var Validation = require('../fallback').Validation;
 
+  it('should throw an error if the first argument is not a buffer', function () {
+    assert.throws(function () {
+      Validation.isValidUTF8({});
+    }, /TypeError: First argument needs to be a buffer/);
+  });
+
+  it('should return true with an empty buffer', function () {
+    assert.strictEqual(Validation.isValidUTF8(new Buffer(0)), true);
+  });
+
   it('should return true for a valid utf8 string', function () {
     assert.strictEqual(Validation.isValidUTF8(new Buffer(txt)), true);
   });
 
-  it('should return false for an erroneous string', function() {
+  it('should return false for an erroneous string', function () {
     var invalid = new Buffer([
       0xce, 0xba, 0xe1, 0xbd, 0xb9, 0xcf, 0x83, 0xce, 0xbc, 0xce, 0xb5, 0xed,
       0xa0, 0x80, 0x65, 0x64, 0x69, 0x74, 0x65, 0x64
