@@ -51,7 +51,7 @@ describe('bindings', function () {
   });
 });
 
-describe.skip('fallback', function () {
+describe('fallback', function () {
   var Validation = require('../fallback').Validation;
 
   it('should throw an error if the first argument is not a buffer', function () {
