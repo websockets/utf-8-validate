@@ -4,41 +4,49 @@
 [![Build Status](https://travis-ci.org/websockets/utf-8-validate.svg?branch=master)](https://travis-ci.org/websockets/utf-8-validate)
 [![Windows Build](https://ci.appveyor.com/api/projects/status/github/websockets/utf-8-validate?branch=master&svg=true)](https://ci.appveyor.com/project/lpinca/utf-8-validate)
 
-WebSocket connections require extensive UTF-8 validation in order to conform to
-the specification. This was unfortunately not possible in JavaScript, hence the
-need for a binary addon.
-
-As the module consists of binary components, it should be used as
-`optionalDependency` so when installation fails, it doesn't halt the
-installation of your module. There are fallback files available in this
-repository. See `fallback.js` for the suggest fallback implementation if
-installation fails.
+Check if a buffer contains valid UTF-8 encoded text.
 
 ## Installation
 
 ```
-npm install utf-8-validate
+npm install utf-8-validate --save-optional
 ```
+
+The `--save-optional` flag tells npm to save the package in your package.json
+under the [`optionalDependencies`](https://docs.npmjs.com/files/package.json#optionaldependencies)
+key.
 
 ## API
 
-In all examples we assume that you've already required the mdoule as
-follows:
+The module exports a single function which takes one argument.
+
+### `isValidUTF8(buffer)`
+
+Checks whether a buffer contains valid UTF-8.
+
+#### Arguments
+
+- `buffer` - The buffer to check.
+
+#### Return value
+
+`true` if the buffer contains only correct UTF-8, else `false`.
+
+#### Exceptions
+
+Throws a `TypeError` exception if the first argument is not a buffer.
+
+#### Example
 
 ```js
 'use strict';
 
-var validation = require('utf-8-validate').Validation;
-```
+const isValidUTF8 = require('utf-8-validate');
 
-The module exposes 1 function:
+const buf = Buffer.from([0xf0, 0x90, 0x80, 0x80]);
 
-#### isValidUTF8
-
-Validate if the passed in buffer contains valid UTF-8 chars.
-
-```js
-validation.isValidUTF8(buffer);
+console.log(isValidUTF8(buf));
+// => true
 ```
 
 ## License
