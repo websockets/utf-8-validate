@@ -1,7 +1,7 @@
 {
   "name": "utf-8-validate",
   "version": "2.0.0",
-  "description": "Validate UTF-8 for Web",
+  "description": "Check if a buffer contains valid UTF-8",
   "main": "index.js",
   "scripts": {
     "coverage": "istanbul cover _mocha --report html -- test/*.test.js",
