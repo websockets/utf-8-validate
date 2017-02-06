@@ -1,4 +1,5 @@
+node_modules/
+prebuilds/
+coverage/
+build/
 npm-debug.log
-node_modules
-build
-coverage

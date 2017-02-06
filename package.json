@@ -4,8 +4,9 @@
   "description": "Check if a buffer contains valid UTF-8",
   "main": "index.js",
   "scripts": {
+    "install": "prebuild-install || node-gyp rebuild",
     "coverage": "istanbul cover _mocha --report html -- test/*.test.js",
-    "test": "mocha test/*.test.js"
+    "test": "mocha test/*.test.js && prebuild-ci"
   },
   "repository": {
     "type": "git",
@@ -22,10 +23,13 @@
   "homepage": "https://github.com/websockets/utf-8-validate",
   "dependencies": {
     "bindings": "~1.2.1",
-    "nan": "~2.5.0"
+    "nan": "~2.5.0",
+    "prebuild-install": "~2.1.0"
   },
   "devDependencies": {
     "istanbul": "~0.4.5",
-    "mocha": "~3.2.0"
+    "mocha": "~3.2.0",
+    "prebuild": "~6.0.2",
+    "prebuild-ci": "~2.0.0"
   }
 }
