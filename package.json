@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "install": "prebuild-install || node-gyp rebuild",
-    "coverage": "istanbul cover _mocha --report html -- test/*.test.js",
-    "test": "mocha test/*.test.js && prebuild-ci"
+    "coverage": "istanbul cover _mocha --report html",
+    "test": "mocha && prebuild-ci"
   },
   "repository": {
     "type": "git",
