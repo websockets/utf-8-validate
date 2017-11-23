@@ -4,11 +4,14 @@
  * MIT Licensed
  */
 
-#include <nan.h>
+#include <napi.h>
 
-NAN_METHOD(isValidUTF8) {
-  uint8_t* s = reinterpret_cast<uint8_t*>(node::Buffer::Data(info[0]));
-  size_t length = node::Buffer::Length(info[0]);
+static Napi::Value isValidUTF8(const Napi::CallbackInfo& info) {
+  Napi::Env env = info.Env();
+
+  Napi::Buffer<char> buf = info[0].As<Napi::Buffer<char>>();
+  uint8_t* s = reinterpret_cast<uint8_t*>(buf.Data());
+  size_t length = buf.Length();
   uint8_t* end = s + length;
 
   //
@@ -61,11 +64,11 @@ NAN_METHOD(isValidUTF8) {
     }
   }
 
-  info.GetReturnValue().Set(Nan::New<v8::Boolean>(s == end));
+  return Napi::Boolean::New(env, s == end);
 }
 
-void init(v8::Local<v8::Object> exports, v8::Local<v8::Object> module) {
-  Nan::SetMethod(module, "exports", isValidUTF8);
+static Napi::Object init(Napi::Env env, Napi::Object exports) {
+  return Napi::Function::New(env, &isValidUTF8);
 }
 
-NODE_MODULE(validation, init)
+NODE_API_MODULE(validation, init)
