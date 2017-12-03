@@ -32,10 +32,6 @@ Checks whether a buffer contains valid UTF-8.
 
 `true` if the buffer contains only correct UTF-8, else `false`.
 
-#### Exceptions
-
-Throws a `TypeError` exception if the first argument is not a buffer.
-
 #### Example
 
 ```js

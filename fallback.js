@@ -16,10 +16,6 @@
  * @public
  */
 const isValidUTF8 = (buf) => {
-  if (!Buffer.isBuffer(buf)) {
-    throw new TypeError('First argument needs to be a buffer');
-  }
-
   var len = buf.length;
   var i = 0;
 

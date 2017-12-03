@@ -8,13 +8,6 @@ const txt = fs.readFileSync(path.join(__dirname, 'fixtures', 'lorem-ipsum.txt'))
 
 function use(isValidUTF8) {
   return function () {
-    it('throws an error if the first argument is not a buffer', function () {
-      assert.throws(
-        () => isValidUTF8({}),
-        /TypeError: First argument needs to be a buffer/
-      );
-    });
-
     it('returns true with an empty buffer', function () {
       assert.strictEqual(isValidUTF8(Buffer.alloc(0)), true);
     });
@@ -52,5 +45,5 @@ function use(isValidUTF8) {
   };
 }
 
-describe('bindings',  use(require('bindings')('validation')));
+describe('bindings', use(require('bindings')('validation')));
 describe('fallback', use(require('../fallback')));

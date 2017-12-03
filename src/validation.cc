@@ -7,11 +7,6 @@
 #include <nan.h>
 
 NAN_METHOD(isValidUTF8) {
-  if (!node::Buffer::HasInstance(info[0])) {
-    Nan::ThrowTypeError("First argument needs to be a buffer");
-    return;
-  }
-
   uint8_t* s = reinterpret_cast<uint8_t*>(node::Buffer::Data(info[0]));
   size_t length = node::Buffer::Length(info[0]);
   uint8_t* end = s + length;
