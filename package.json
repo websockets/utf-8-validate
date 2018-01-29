@@ -29,7 +29,7 @@
   "devDependencies": {
     "istanbul": "~0.4.5",
     "mocha": "~5.0.0",
-    "prebuild": "~7.2.0",
+    "prebuild": "~7.3.0",
     "prebuild-ci": "~2.2.0"
   }
 }
