@@ -23,7 +23,7 @@
   "homepage": "https://github.com/websockets/utf-8-validate",
   "dependencies": {
     "bindings": "~1.3.0",
-    "nan": "~2.9.1",
+    "nan": "~2.10.0",
     "prebuild-install": "~2.5.0"
   },
   "devDependencies": {
