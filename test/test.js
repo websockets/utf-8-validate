@@ -1,19 +1,19 @@
 'use strict';
 
-const assert = require('assert');
-const path = require('path');
-const fs = require('fs');
+const { join } = require('path');
+const { readFileSync } = require('fs');
+const { strictEqual } = require('assert');
 
-const txt = fs.readFileSync(path.join(__dirname, 'fixtures', 'lorem-ipsum.txt'));
+const txt = readFileSync(join(__dirname, 'fixtures', 'lorem-ipsum.txt'));
 
 function use(isValidUTF8) {
   return function () {
     it('returns true with an empty buffer', function () {
-      assert.strictEqual(isValidUTF8(Buffer.alloc(0)), true);
+      strictEqual(isValidUTF8(Buffer.alloc(0)), true);
     });
 
     it('returns true for a valid utf8 string', function () {
-      assert.strictEqual(isValidUTF8(Buffer.from(txt)), true);
+      strictEqual(isValidUTF8(Buffer.from(txt)), true);
     });
 
     it('returns false for an erroneous string', function () {
@@ -22,22 +22,22 @@ function use(isValidUTF8) {
         0xa0, 0x80, 0x65, 0x64, 0x69, 0x74, 0x65, 0x64
       ]);
 
-      assert.strictEqual(isValidUTF8(invalid), false);
+      strictEqual(isValidUTF8(invalid), false);
     });
 
     it('returns true for valid cases from the autobahn test suite', function () {
-      assert.strictEqual(
+      strictEqual(
         isValidUTF8(Buffer.from('\xf0\x90\x80\x80')),
         true
       );
-      assert.strictEqual(
+      strictEqual(
         isValidUTF8(Buffer.from([0xf0, 0x90, 0x80, 0x80])),
         true
       );
     });
 
     it('returns false for erroneous autobahn strings', function () {
-      assert.strictEqual(
+      strictEqual(
         isValidUTF8(Buffer.from([0xce, 0xba, 0xe1, 0xbd])),
         false
       );
@@ -45,5 +45,5 @@ function use(isValidUTF8) {
   };
 }
 
-describe('bindings', use(require('bindings')('validation')));
+describe('bindings', use(require('node-gyp-build')(join(__dirname, '..'))));
 describe('fallback', use(require('../fallback')));
