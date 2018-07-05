@@ -4,12 +4,24 @@
  * MIT Licensed
  */
 
-#include <nan.h>
+#include <assert.h>
+#include <node_api.h>
 
-NAN_METHOD(isValidUTF8) {
-  uint8_t* s = reinterpret_cast<uint8_t*>(node::Buffer::Data(info[0]));
-  size_t length = node::Buffer::Length(info[0]);
-  uint8_t* end = s + length;
+napi_value IsValidUTF8(napi_env env, napi_callback_info info) {
+  napi_status status;
+  size_t argc = 1;
+  napi_value argv[1];
+
+  status = napi_get_cb_info(env, info, &argc, argv, NULL, NULL);
+  assert(status == napi_ok);
+
+  uint8_t *s;
+  size_t length;
+
+  status = napi_get_buffer_info(env, argv[0], (void **)&s, &length);
+  assert(status == napi_ok);
+
+  uint8_t *end = s + length;
 
   //
   // This code has been taken from utf8_check.c which was developed by
@@ -61,11 +73,21 @@ NAN_METHOD(isValidUTF8) {
     }
   }
 
-  info.GetReturnValue().Set(Nan::New<v8::Boolean>(s == end));
+  napi_value result;
+  status = napi_get_boolean(env, s == end, &result);
+  assert(status == napi_ok);
+
+  return result;
 }
 
-void init(v8::Local<v8::Object> exports, v8::Local<v8::Object> module) {
-  Nan::SetMethod(module, "exports", isValidUTF8);
+napi_value Init(napi_env env, napi_value exports) {
+  napi_status status;
+  napi_value isValidUTF8;
+
+  status = napi_create_function(env, NULL, 0, IsValidUTF8, NULL, &isValidUTF8);
+  assert(status == napi_ok);
+
+  return isValidUTF8;
 }
 
-NODE_MODULE(validation, init)
+NAPI_MODULE(NODE_GYP_MODULE_NAME, Init)
