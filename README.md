@@ -9,12 +9,8 @@ Check if a buffer contains valid UTF-8 encoded text.
 ## Installation
 
 ```
-npm install utf-8-validate --save-optional
+npm install utf-8-validate
 ```
-
-The `--save-optional` flag tells npm to save the package in your package.json
-under the [`optionalDependencies`](https://docs.npmjs.com/files/package.json#optionaldependencies)
-key.
 
 ## API
 

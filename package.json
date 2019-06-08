@@ -4,8 +4,6 @@
   "description": "Check if a buffer contains valid UTF-8",
   "main": "index.js",
   "scripts": {
-    "install": "node-gyp-build",
-    "prebuild": "prebuildify --napi",
     "test": "mocha"
   },
   "repository": {
@@ -21,9 +19,6 @@
     "url": "https://github.com/websockets/utf-8-validate/issues"
   },
   "homepage": "https://github.com/websockets/utf-8-validate",
-  "dependencies": {
-    "node-gyp-build": "~4.1.0"
-  },
   "devDependencies": {
     "mocha": "~6.1.0",
     "prebuildify": "~3.0.0"
