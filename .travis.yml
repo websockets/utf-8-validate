@@ -13,7 +13,7 @@ before_deploy:
 deploy:
   provider: releases
   api_key:
-    secure: VCE2AgIOeQFDHWw9g+pRmh8KibbIoTstKlUsVVHrWrICTCYdoSA7ivvhy40MRi8uJwK+cMbsf3auSLYJ6siUdcm46S+5IiU65ZBCGhzhaFOJPmVdzbqK2TNM3dEVFePsnLq1Oki5YzbdjZg46AIZFrAhCmuFahicnDcY9cN2/fg=
+    secure: FzxCOALZjPUUCE0pdV6xoeUwcpUG92A6cgeZjUrU8iSsneCLSBfj3i1Zpsz+1A8pPCy4FmWRSqCxkEwMVluYXsUpqT54nvX0yQZHeXTDnVYg1EIvEuKgkysEVUQJ6VplTilE6lrRWYEkOOoQPeIEe4kW8EyGzpV9zeHrpdYsdc0=
   file: "$ARCHIVE_NAME"
   skip_cleanup: true
   on:
