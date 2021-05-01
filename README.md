@@ -47,4 +47,6 @@ console.log(isValidUTF8(buf));
 
 ## License
 
-[MIT](LICENSE)
+This module is available under the [MIT License](LICENSE). This module also
+includes the simdjson library that is available under the
+[Apache License 2.0](deps/simdjson/LICENSE).

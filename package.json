@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/websockets/utf-8-validate",
   "dependencies": {
+    "node-addon-api": "^3.1.0",
     "node-gyp-build": "^4.2.0"
   },
   "devDependencies": {
