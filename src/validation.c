@@ -36,13 +36,13 @@ napi_value IsValidUTF8(napi_env env, napi_callback_info info) {
       uint64_t chunk;
       memcpy(&chunk, buf + i, 8);
 
-      if ((chunk & 0x8080808080808080) == 0) {
+      if ((chunk & 0x8080808080808080) == 0x00) {
         i = j;
         continue;
       }
     }
 
-    while ((buf[i] & 0x80) == 0) { // 0xxxxxxx
+    while ((buf[i] & 0x80) == 0x00) { // 0xxxxxxx
       if (++i == len) {
         goto exit;
       }
