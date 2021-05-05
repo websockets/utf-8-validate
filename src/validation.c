@@ -55,9 +55,9 @@ napi_value IsValidUTF8(napi_env env, napi_callback_info info) {
         (buf[i] & 0xfe) == 0xc0  // overlong
       ) {
         break;
-      } else {
-        i += 2;
       }
+
+      i += 2;
     } else if ((buf[i] & 0xf0) == 0xe0) {  // 1110xxxx 10xxxxxx 10xxxxxx
       if (
         i + 2 >= len ||
@@ -67,9 +67,9 @@ napi_value IsValidUTF8(napi_env env, napi_callback_info info) {
         (buf[i] == 0xed && (buf[i + 1] & 0xe0) == 0xa0)  // surrogate (U+D800 - U+DFFF)
       ) {
         break;
-      } else {
-        i += 3;
       }
+
+      i += 3;
     } else if ((buf[i] & 0xf8) == 0xf0) {  // 11110xxx 10xxxxxx 10xxxxxx 10xxxxxx
       if (
         i + 3 >= len ||
@@ -80,9 +80,9 @@ napi_value IsValidUTF8(napi_env env, napi_callback_info info) {
         (buf[i] == 0xf4 && buf[i + 1] > 0x8f) || buf[i] > 0xf4  // > U+10FFFF
       ) {
         break;
-      } else {
-        i += 4;
       }
+
+      i += 4;
     } else {
       break;
     }
