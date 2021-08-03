@@ -2,8 +2,11 @@
   'targets': [
     {
       'target_name': 'validation',
-      'sources': ['src/validation.c'],
-      'cflags': ['-std=c99'],
+      'sources': [
+        'src/validation.cc',
+        'deps/simdutf/singleheader/simdutf.cpp'
+      ],
+      'cflags_cc': ['-std=gnu++11'],
       'conditions': [
         ["OS=='mac'", {
           'xcode_settings': {
