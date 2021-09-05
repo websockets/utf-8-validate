@@ -1,8 +1,7 @@
 # utf-8-validate
 
 [![Version npm](https://img.shields.io/npm/v/utf-8-validate.svg)](https://www.npmjs.com/package/utf-8-validate)
-[![Build Status](https://img.shields.io/github/workflow/status/websockets/utf-8-validate/CI/master?label=build)](https://github.com/websockets/utf-8-validate/actions?query=workflow%3ACI+branch%3Amaster)
-[![Windows x86 Build](https://ci.appveyor.com/api/projects/status/github/websockets/utf-8-validate?branch=master&svg=true)](https://ci.appveyor.com/project/lpinca/utf-8-validate)
+[![Linux/macOS/Windows Build](https://img.shields.io/github/workflow/status/websockets/utf-8-validate/CI/master?label=build)](https://github.com/websockets/utf-8-validate/actions?query=workflow%3ACI+branch%3Amaster)
 
 Check if a buffer contains valid UTF-8 encoded text.
 
