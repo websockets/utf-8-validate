@@ -1,7 +1,7 @@
 # utf-8-validate
 
-[![Version npm](https://img.shields.io/npm/v/utf-8-validate.svg)](https://www.npmjs.com/package/utf-8-validate)
-[![Linux/macOS/Windows Build](https://img.shields.io/github/workflow/status/websockets/utf-8-validate/CI/master?label=build)](https://github.com/websockets/utf-8-validate/actions?query=workflow%3ACI+branch%3Amaster)
+[![Version npm](https://img.shields.io/npm/v/utf-8-validate.svg?logo=npm)](https://www.npmjs.com/package/utf-8-validate)
+[![Linux/macOS/Windows Build](https://img.shields.io/github/workflow/status/websockets/utf-8-validate/CI/master?label=build&logo=github)](https://github.com/websockets/utf-8-validate/actions?query=workflow%3ACI+branch%3Amaster)
 
 Check if a buffer contains valid UTF-8 encoded text.
 
@@ -12,7 +12,8 @@ npm install utf-8-validate --save-optional
 ```
 
 The `--save-optional` flag tells npm to save the package in your package.json
-under the [`optionalDependencies`](https://docs.npmjs.com/files/package.json#optionaldependencies)
+under the
+[`optionalDependencies`](https://docs.npmjs.com/files/package.json#optionaldependencies)
 key.
 
 ## API
