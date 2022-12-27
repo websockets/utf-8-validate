@@ -12,6 +12,13 @@
     "prebuild-darwin-x64+arm64": "prebuildify --arch x64+arm64 --napi --strip --target=14.0.0",
     "test": "mocha"
   },
+  "files": [
+    "prebuilds/",
+    "src/",
+    "binding.gyp",
+    "fallback.js",
+    "index.js"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/websockets/utf-8-validate"
