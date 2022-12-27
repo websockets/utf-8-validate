@@ -1,5 +1,3 @@
 node_modules/
 prebuilds/
-coverage/
 build/
-npm-debug.log
