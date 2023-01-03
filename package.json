@@ -15,6 +15,9 @@
   "files": [
     "prebuilds/",
     "src/",
+    "deps/is_utf8/LICENSE-MIT",
+    "deps/is_utf8/include/is_utf8.h",
+    "deps/is_utf8/src/is_utf8.cpp",
     "binding.gyp",
     "fallback.js",
     "index.js"
