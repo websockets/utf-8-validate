@@ -688,7 +688,7 @@ public:
 
   virtual uint32_t required_instruction_sets() const {
     return _required_instruction_sets;
-  };
+  }
 
   /**
    * Validate the UTF-8 string.
@@ -826,8 +826,7 @@ private:
 /**
  * The list of available implementations compiled into simdutf.
  */
-extern IS_UTF8_DLLIMPORTEXPORT const internal::available_implementation_list
-    available_implementations;
+extern IS_UTF8_DLLIMPORTEXPORT const internal::available_implementation_list& get_available_implementations();
 
 /**
  * The active implementation.
@@ -835,8 +834,7 @@ extern IS_UTF8_DLLIMPORTEXPORT const internal::available_implementation_list
  * Automatically initialized on first use to the most advanced implementation
  * supported by this hardware.
  */
-extern IS_UTF8_DLLIMPORTEXPORT internal::atomic_ptr<const implementation>
-    active_implementation;
+extern IS_UTF8_DLLIMPORTEXPORT internal::atomic_ptr<const implementation>& get_active_implementation();
 
 } // namespace is_utf8_internals
 
@@ -4640,33 +4638,39 @@ detect_best_supported_implementation_on_first_use::set_best() const noexcept {
 
   if (force_implementation_name) {
     auto force_implementation =
-        available_implementations[force_implementation_name];
+        get_available_implementations()[force_implementation_name];
     if (force_implementation) {
-      return active_implementation = force_implementation;
+      return get_active_implementation() = force_implementation;
     } else {
       // Note: abort() and stderr usage within the library is forbidden.
-      return active_implementation = &unsupported_singleton;
+      return get_active_implementation() = &unsupported_singleton;
     }
   }
-  return active_implementation =
-             available_implementations.detect_best_supported();
+  return get_active_implementation() =
+             get_available_implementations().detect_best_supported();
 }
 
 } // namespace internal
 
-IS_UTF8_DLLIMPORTEXPORT const internal::available_implementation_list
-    available_implementations{};
-IS_UTF8_DLLIMPORTEXPORT internal::atomic_ptr<const implementation>
-    active_implementation{
-        &internal::detect_best_supported_implementation_on_first_use_singleton};
+IS_UTF8_DLLIMPORTEXPORT const internal::available_implementation_list& get_available_implementations() {
+  static const internal::available_implementation_list available_implementations{};
+  return available_implementations;
+}
+
+IS_UTF8_DLLIMPORTEXPORT internal::atomic_ptr<const implementation>& get_active_implementation() {
+    static const internal::detect_best_supported_implementation_on_first_use detect_best_supported_implementation_on_first_use_singleton;
+    static internal::atomic_ptr<const implementation> active_implementation{&detect_best_supported_implementation_on_first_use_singleton};
+    return active_implementation;
+}
+
 
 is_utf8_warn_unused bool validate_utf8(const char *buf, size_t len) noexcept {
-  return active_implementation->validate_utf8(buf, len);
+  return get_active_implementation()->validate_utf8(buf, len);
 }
 
 const implementation *builtin_implementation() {
   static const implementation *builtin_impl =
-      available_implementations[IS_UTF8_STRINGIFY(
+      get_available_implementations()[IS_UTF8_STRINGIFY(
           IS_UTF8_BUILTIN_IMPLEMENTATION)];
   return builtin_impl;
 }
