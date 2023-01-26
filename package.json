@@ -8,8 +8,9 @@
   },
   "scripts": {
     "install": "node-gyp-build",
-    "prebuild": "prebuildify --napi --strip --target=14.0.0",
-    "prebuild-darwin-x64+arm64": "prebuildify --arch x64+arm64 --napi --strip --target=14.0.0",
+    "prebuild": "prebuildify --napi --strip --target=8.11.2",
+    "prebuild-linux-musl-x64": "prebuildify-cross --image alpine --napi --strip --target=8.11.2",
+    "prebuild-darwin-x64+arm64": "prebuildify --arch x64+arm64 --napi --strip --target=8.11.2",
     "test": "mocha"
   },
   "files": [
@@ -41,6 +42,7 @@
   "devDependencies": {
     "mocha": "^10.0.0",
     "node-gyp": "^9.1.0",
-    "prebuildify": "^5.0.0"
+    "prebuildify": "^5.0.0",
+    "prebuildify-cross": "^5.0.0"
   }
 }
