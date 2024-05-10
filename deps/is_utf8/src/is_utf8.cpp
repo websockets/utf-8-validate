@@ -872,8 +872,13 @@ template <typename T> std::string toBinaryString(T b) {
 #ifndef IS_UTF8_IMPLEMENTATION_ARM64
 #define IS_UTF8_IMPLEMENTATION_ARM64 (IS_UTF8_IS_ARM64)
 #endif
-#define IS_UTF8_CAN_ALWAYS_RUN_ARM64                                           \
-  IS_UTF8_IMPLEMENTATION_ARM64 &&IS_UTF8_IS_ARM64
+
+#if IS_UTF8_IMPLEMENTATION_ARM64 &&IS_UTF8_IS_ARM64
+#define IS_UTF8_CAN_ALWAYS_RUN_ARM64 1
+#else
+#define IS_UTF8_CAN_ALWAYS_RUN_ARM64 0
+#endif
+
 
 #if IS_UTF8_IMPLEMENTATION_ARM64
 
@@ -1116,8 +1121,9 @@ template <typename T, typename Mask = simd8<bool>> struct base_u8 {
     return *this_cast;
   }
 
-  is_utf8_really_inline Mask operator==(const simd8<T> other) const {
-    return vceqq_u8(*this, other);
+  friend is_utf8_really_inline Mask operator==(const simd8<T> lhs,
+                                               const simd8<T> rhs) {
+    return vceqq_u8(lhs, rhs);
   }
 
   template <int N = 1>
@@ -2172,7 +2178,7 @@ namespace icelake {} // namespace icelake
 // We should not get warnings while including <x86intrin.h> yet we do
 // under some versions of GCC.
 // If the x86intrin.h header has uninitialized values that are problematic,
-// it is a GCC issue, we want to ignore these warnigns.
+// it is a GCC issue, we want to ignore these warnings.
 IS_UTF8_DISABLE_GCC_WARNING(-Wuninitialized)
 #endif
 
@@ -2342,8 +2348,11 @@ IS_UTF8_POP_DISABLE_WARNINGS
 #endif
 // To see why  (__BMI__) && (__PCLMUL__) && (__LZCNT__) are not part of this
 // next line, see https://github.com/simdutf/simdutf/issues/1247
-#define IS_UTF8_CAN_ALWAYS_RUN_HASWELL                                         \
-  ((IS_UTF8_IMPLEMENTATION_HASWELL) && (IS_UTF8_IS_X86_64) && (__AVX2__))
+#if ((IS_UTF8_IMPLEMENTATION_HASWELL) && (IS_UTF8_IS_X86_64) && (__AVX2__))
+#define IS_UTF8_CAN_ALWAYS_RUN_HASWELL  1
+#else
+#define IS_UTF8_CAN_ALWAYS_RUN_HASWELL  0
+#endif
 
 #if IS_UTF8_IMPLEMENTATION_HASWELL
 
@@ -2398,7 +2407,7 @@ public:
 // We should not get warnings while including <x86intrin.h> yet we do
 // under some versions of GCC.
 // If the x86intrin.h header has uninitialized values that are problematic,
-// it is a GCC issue, we want to ignore these warnigns.
+// it is a GCC issue, we want to ignore these warnings.
 IS_UTF8_DISABLE_GCC_WARNING(-Wuninitialized)
 #endif
 
@@ -2539,8 +2548,9 @@ struct base8 : base<simd8<T>> {
   is_utf8_really_inline T last() const {
     return _mm256_extract_epi8(*this, 31);
   }
-  is_utf8_really_inline Mask operator==(const simd8<T> other) const {
-    return _mm256_cmpeq_epi8(*this, other);
+  friend is_utf8_really_inline Mask operator==(const simd8<T> lhs,
+                                               const simd8<T> rhs) {
+    return _mm256_cmpeq_epi8(lhs, rhs);
   }
 
   static const int SIZE = sizeof(base<T>::value);
@@ -2965,8 +2975,9 @@ struct base16 : base<simd16<T>> {
   is_utf8_really_inline base16(const Pointer *ptr)
       : base16(_mm256_loadu_si256(reinterpret_cast<const __m256i *>(ptr))) {}
 
-  is_utf8_really_inline Mask operator==(const simd16<T> other) const {
-    return _mm256_cmpeq_epi16(*this, other);
+  friend is_utf8_really_inline Mask operator==(const simd16<T> lhs,
+                                               const simd16<T> rhs) {
+    return _mm256_cmpeq_epi16(lhs, rhs);
   }
 
   /// the size of vector in bytes
@@ -3340,9 +3351,11 @@ IS_UTF8_UNTARGET_REGION
 
 #endif
 
-#define IS_UTF8_CAN_ALWAYS_RUN_WESTMERE                                        \
-  (IS_UTF8_IMPLEMENTATION_WESTMERE && IS_UTF8_IS_X86_64 && __SSE4_2__ &&       \
-   __PCLMUL__)
+#if IS_UTF8_IMPLEMENTATION_WESTMERE && IS_UTF8_IS_X86_64 && __SSE4_2__ &&  __PCLMUL__
+#define IS_UTF8_CAN_ALWAYS_RUN_WESTMERE 1
+#else
+#define IS_UTF8_CAN_ALWAYS_RUN_WESTMERE 0
+#endif
 
 #if IS_UTF8_IMPLEMENTATION_WESTMERE
 
@@ -3395,7 +3408,7 @@ public:
 // We should not get warnings while including <x86intrin.h> yet we do
 // under some versions of GCC.
 // If the x86intrin.h header has uninitialized values that are problematic,
-// it is a GCC issue, we want to ignore these warnigns.
+// it is a GCC issue, we want to ignore these warnings.
 IS_UTF8_DISABLE_GCC_WARNING(-Wuninitialized)
 #endif
 
@@ -3517,8 +3530,9 @@ struct base8 : base<simd8<T>> {
   is_utf8_really_inline base8() : base<simd8<T>>() {}
   is_utf8_really_inline base8(const __m128i _value) : base<simd8<T>>(_value) {}
 
-  is_utf8_really_inline Mask operator==(const simd8<T> other) const {
-    return _mm_cmpeq_epi8(*this, other);
+  friend is_utf8_really_inline Mask operator==(const simd8<T> lhs,
+                                               const simd8<T> rhs) {
+    return _mm_cmpeq_epi8(lhs, rhs);
   }
 
   static const int SIZE = sizeof(base<simd8<T>>::value);
@@ -4032,8 +4046,9 @@ struct base16 : base<simd16<T>> {
   is_utf8_really_inline base16(const Pointer *ptr)
       : base16(_mm_loadu_si128(reinterpret_cast<const __m128i *>(ptr))) {}
 
-  is_utf8_really_inline Mask operator==(const simd16<T> other) const {
-    return _mm_cmpeq_epi16(*this, other);
+  friend is_utf8_really_inline Mask operator==(const simd16<T> lhs,
+                                               const simd16<T> rhs) {
+    return _mm_cmpeq_epi16(lhs, rhs);
   }
 
   static const int SIZE = sizeof(base<simd16<T>>::value);
@@ -4407,7 +4422,11 @@ IS_UTF8_UNTARGET_REGION
 #endif
 #endif
 
-#define IS_UTF8_CAN_ALWAYS_RUN_FALLBACK (IS_UTF8_IMPLEMENTATION_FALLBACK)
+#if IS_UTF8_IMPLEMENTATION_FALLBACK
+#define IS_UTF8_CAN_ALWAYS_RUN_FALLBACK 1
+#else
+#define IS_UTF8_CAN_ALWAYS_RUN_FALLBACK 0
+#endif
 
 #if IS_UTF8_IMPLEMENTATION_FALLBACK
 
