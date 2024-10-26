@@ -18,7 +18,9 @@ key.
 
 ## API
 
-The module exports a single function which takes one argument.
+The module exports a single function that takes one argument. To maximize
+performance, the argument is not validated. It is the caller's responsibility to
+ensure that it is correct.
 
 ### `isValidUTF8(buffer)`
 
