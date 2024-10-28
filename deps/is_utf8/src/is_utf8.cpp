@@ -2568,11 +2568,11 @@ template <> struct simd8<bool> : base8<bool> {
     return _mm256_set1_epi8(uint8_t(-(!!_value)));
   }
 
-  is_utf8_really_inline simd8<bool>() : base8() {}
-  is_utf8_really_inline simd8<bool>(const __m256i _value)
+  is_utf8_really_inline simd8() : base8() {}
+  is_utf8_really_inline simd8(const __m256i _value)
       : base8<bool>(_value) {}
   // Splat constructor
-  is_utf8_really_inline simd8<bool>(bool _value) : base8<bool>(splat(_value)) {}
+  is_utf8_really_inline simd8(bool _value) : base8<bool>(splat(_value)) {}
 
   is_utf8_really_inline uint32_t to_bitmask() const {
     return uint32_t(_mm256_movemask_epi8(*this));
@@ -2998,11 +2998,11 @@ template <> struct simd16<bool> : base16<bool> {
     return _mm256_set1_epi16(uint16_t(-(!!_value)));
   }
 
-  is_utf8_really_inline simd16<bool>() : base16() {}
-  is_utf8_really_inline simd16<bool>(const __m256i _value)
+  is_utf8_really_inline simd16() : base16() {}
+  is_utf8_really_inline simd16(const __m256i _value)
       : base16<bool>(_value) {}
   // Splat constructor
-  is_utf8_really_inline simd16<bool>(bool _value)
+  is_utf8_really_inline simd16(bool _value)
       : base16<bool>(splat(_value)) {}
 
   is_utf8_really_inline bitmask_type to_bitmask() const {
@@ -3549,11 +3549,11 @@ template <> struct simd8<bool> : base8<bool> {
     return _mm_set1_epi8(uint8_t(-(!!_value)));
   }
 
-  is_utf8_really_inline simd8<bool>() : base8() {}
-  is_utf8_really_inline simd8<bool>(const __m128i _value)
+  is_utf8_really_inline simd8() : base8() {}
+  is_utf8_really_inline simd8(const __m128i _value)
       : base8<bool>(_value) {}
   // Splat constructor
-  is_utf8_really_inline simd8<bool>(bool _value) : base8<bool>(splat(_value)) {}
+  is_utf8_really_inline simd8(bool _value) : base8<bool>(splat(_value)) {}
 
   is_utf8_really_inline int to_bitmask() const {
     return _mm_movemask_epi8(*this);
@@ -4065,11 +4065,11 @@ template <> struct simd16<bool> : base16<bool> {
     return _mm_set1_epi16(uint16_t(-(!!_value)));
   }
 
-  is_utf8_really_inline simd16<bool>() : base16() {}
-  is_utf8_really_inline simd16<bool>(const __m128i _value)
+  is_utf8_really_inline simd16() : base16() {}
+  is_utf8_really_inline simd16(const __m128i _value)
       : base16<bool>(_value) {}
   // Splat constructor
-  is_utf8_really_inline simd16<bool>(bool _value)
+  is_utf8_really_inline simd16(bool _value)
       : base16<bool>(splat(_value)) {}
 
   is_utf8_really_inline int to_bitmask() const {
@@ -6748,6 +6748,8 @@ IS_UTF8_UNTARGET_REGION
 
 IS_UTF8_POP_DISABLE_WARNINGS
 
-bool is_utf8(const char *src, size_t len) {
-  return is_utf8_internals::validate_utf8(src, len);
+extern "C" {
+  bool is_utf8(const char *src, size_t len) {
+    return is_utf8_internals::validate_utf8(src, len);
+  }
 }

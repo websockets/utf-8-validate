@@ -6,5 +6,5 @@
 // 99.99% of the inputs are valid UTF-8.
 // Thus the function unconditionally scans the
 // whole input.
-bool is_utf8(const char *src, size_t len);
+extern "C" bool is_utf8(const char *src, size_t len);
 #endif // IS_UTF8
