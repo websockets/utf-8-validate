@@ -10,7 +10,6 @@
     "install": "node-gyp-build",
     "prebuild": "prebuildify --napi --strip --target=8.11.2",
     "prebuild-linux-musl-x64": "prebuildify-cross --image alpine --napi --strip --target=8.11.2",
-    "prebuild-darwin-x64+arm64": "prebuildify --arch x64+arm64 --napi --strip --target=8.11.2",
     "test": "mocha"
   },
   "files": [
