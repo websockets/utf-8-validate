@@ -74,7 +74,7 @@ jobs:
       - run: npm run prebuild
       - run: npm run prebuild-linux-musl-x64
         if: matrix.os == 'ubuntu-22.04'
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.os }}-${{ matrix.arch }}
           path: prebuilds
