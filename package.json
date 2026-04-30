@@ -2,7 +2,24 @@
   "name": "utf-8-validate",
   "version": "6.0.6",
   "description": "Check if a buffer contains valid UTF-8",
-  "main": "index.js",
+  "main": "./index.cjs",
+  "module": "./index.mjs",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./index.d.ts",
+        "default": "./index.mjs"
+      },
+      "require": {
+        "types": "./index.d.ts",
+        "default": "./index.js"
+      }
+    },
+    "./package.json": {
+      "default": "./package.json"
+    }
+  },
+  "typings": "./index.d.ts",
   "engines": {
     "node": ">=6.14.2"
   },
@@ -20,7 +37,10 @@
     "deps/is_utf8/src/is_utf8.cpp",
     "binding.gyp",
     "fallback.js",
-    "index.js"
+    "fallback.mjs",
+    "index.js",
+    "index.mjs",
+    "index.d.ts"
   ],
   "repository": {
     "type": "git",
@@ -36,7 +56,7 @@
   },
   "homepage": "https://github.com/websockets/utf-8-validate",
   "dependencies": {
-    "node-gyp-build": "^4.3.0"
+    "node-gyp-build-esm": "^5.0.2"
   },
   "devDependencies": {
     "mocha": "^11.0.1",
